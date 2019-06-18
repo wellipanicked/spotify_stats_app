@@ -22,8 +22,8 @@ import static app.service.UriService.authorizationCodeUri;
 @SpringBootApplication
 public class Application implements CommandLineRunner {
 
-    private static final String clientId = "111111111111111111111";
-    private static final String clientSecret = "111111111111111111";
+    private static final String clientId = "111111111111111111111111";
+    private static final String clientSecret = "111111111111111111111";
     private static final URI redirectUri = SpotifyHttpManager.makeUri("http://localhost:8080/logged/");
 
 
