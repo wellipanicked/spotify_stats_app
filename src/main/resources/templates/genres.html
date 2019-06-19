@@ -1,37 +1,28 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Your Top Genres</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" href="main.css">
-    <style>
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 15px;
-        }
-    </style>
+    <title>Your 3 Top Genres</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
 </head>
 <body>
-<table style="width: 100%">
-    <thead>
-    <tr>
-        <th> Position </th>
-        <th> Genre </th>
-        <th> Artists </th>
-        <th> No. of Artists</th>
+
+
+<div style="text-align: center">
+    <h2>Your 3 Top Genres:</h2>
+    <tr
+            th:each="genre, iStat : ${genres}">
+        <h1>
+            <td th:text="${iStat?.count}"/>
+        </h1>
+        <h3>
+            <td th:text="${genre?.getGenreName()}"/>
+        </h3>
+        <p>
+        <td th:text="${genre?.getArtists()}"/>
+        </p>
     </tr>
-    </thead>
-    <tbody>
-    <tr th:each="genre : ${genres}">
-        <td><span th:text="${genre.getPlace() + 1}"> Position </span></td>
-        <td><span th:text="${genre.getGenreName()}"> Genre </span></td>
-        <td><span th:text="${genre.getArtists()}"> Artists </span></td>
-        <td><span th:text="${genre.getArtists().size()}"> No. of Artists </span></td>
-    </tr>
-    </tbody>
-</table>
+
+</div>
 </body>
 </html>

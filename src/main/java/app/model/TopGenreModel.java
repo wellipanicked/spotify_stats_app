@@ -4,7 +4,6 @@ import java.util.List;
 
 public class TopGenreModel {
 
-    private int place;
     private String genreName;
 
     private List<String> artists;
@@ -17,13 +16,6 @@ public class TopGenreModel {
         this.genreName = genreName;
     }
 
-    public int getPlace() {
-        return place;
-    }
-
-    public void setPlace(int place) {
-        this.place = place;
-    }
 
     public List<String> getArtists() {
         return artists;
@@ -33,9 +25,7 @@ public class TopGenreModel {
         this.artists = artists;
     }
 
-    public void printTopGenre()
-    {
-        System.out.println(getPlace());
+    public void printTopGenre() {
         System.out.println(getGenreName());
     }
 }

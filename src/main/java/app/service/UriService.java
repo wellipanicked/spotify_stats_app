@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import java.awt.*;
 import java.net.URI;
-import java.net.URL;
 
 import static app.Application.spotifyApi;
 
@@ -23,7 +22,6 @@ public class UriService {
         System.out.println("URI: " + uri.toString());
         return uri;
     }
-
 
 
     public static boolean openWebpage(URI uri) {

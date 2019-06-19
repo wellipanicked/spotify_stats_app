@@ -30,7 +30,7 @@ public class ArtistsGenresService {
     }
 
     //lista gatunków z ilością zespołów
-    public void showGenresInNumbers(Map<String, Integer> genresMap){
+    public void showGenresInNumbers(Map<String, Integer> genresMap) {
 
         genresMap.entrySet().forEach(entry -> System.out.println(entry.getKey() + " " + entry.getValue()));
     }

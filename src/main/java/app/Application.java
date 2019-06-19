@@ -13,17 +13,20 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.env.Environment;
 
 import java.net.URI;
 
 import static app.controller.TokenController.getCode;
 import static app.service.UriService.authorizationCodeUri;
 
+//@PropertySource("classpath:application.properties")
 @SpringBootApplication
 public class Application implements CommandLineRunner {
 
-    private static final String clientId = "111111111111111111111111";
-    private static final String clientSecret = "111111111111111111111";
+
+    private static final String clientId = "xxxxxxxxxxxxxxxxxxxxxxxx";
+    private static final String clientSecret = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
     private static final URI redirectUri = SpotifyHttpManager.makeUri("http://localhost:8080/logged/");
 
 
@@ -37,6 +40,15 @@ public class Application implements CommandLineRunner {
     private UriService uriService;
 
 
+    @Autowired
+    private static Environment env;
+
+    //@Value( "${clientId}" )
+    //private static String clientId;
+
+    //Value( "${clientSecret}" )
+    //private static String clientSecret;
+
     public static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
             .setClientId(clientId)
             .setClientSecret(clientSecret)
@@ -44,13 +56,11 @@ public class Application implements CommandLineRunner {
             .build();
 
 
-
     public static void main(String[] args) {
         SpringApplicationBuilder builder = new SpringApplicationBuilder(Application.class);
         builder.headless(false);
         ConfigurableApplicationContext context = builder.run(args);
     }
-
 
 
     @Override

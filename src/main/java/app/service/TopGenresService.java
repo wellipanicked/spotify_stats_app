@@ -24,8 +24,7 @@ public class TopGenresService {
             TopGenreModel topGenreModel = new TopGenreModel();
             int maxValueInMap = (Collections.max(genresMap.values()));
             for (Map.Entry<String, Integer> entry : genresMap.entrySet()) {
-                if (entry.getValue() == maxValueInMap){ // && (genresList.isEmpty() || !containsName(genresList, entry.getKey()))) {
-                    topGenreModel.setPlace(k);
+                if (entry.getValue() == maxValueInMap && entry.getValue() != 0) {
                     topGenreModel.setGenreName(entry.getKey());
                     topGenreModel.setArtists(new ArrayList<>());
                     genresMap.put(entry.getKey(), 0);
@@ -39,9 +38,14 @@ public class TopGenresService {
 
                         }
                     }
+
                 }
+                if (!genresList.contains(topGenreModel) && topGenreModel.getGenreName() != null) {
+                    genresList.add(topGenreModel);
+                }
+
             }
-            genresList.add(topGenreModel);
+
         }
 
         return genresList;
