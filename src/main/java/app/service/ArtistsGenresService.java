@@ -1,41 +1,64 @@
 package app.service;
 
 import com.wrapper.spotify.model_objects.specification.Artist;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.*;
+
 
 @Service
 public class ArtistsGenresService {
 
-    private Map<String, Integer> genresMap = new HashMap<>();
+    private Map<String, Integer> genresCountMap = new HashMap<>();
 
-    public Map<String, Integer> getGenresMap(Artist[] art) {
 
-        genresMap.clear();
+    @Autowired
+    FollowedArtistsService followedArtistsService;
 
-        for (int k = 0; k < art.length; k++) {
-            for (int l = 0; l < art[k].getGenres().length; l++) {
 
-                String key = art[k].getGenres()[l];
-                if (genresMap.containsKey(key)) {
-                    genresMap.put(key, genresMap.get(key) + 1);
-                } else {
-                    genresMap.put(key, 1);
+    public List<String> getGenreArtists(String genre){
+        List<String> genreArtists = new ArrayList<>();
+
+        Artist[] followedArtists = followedArtistsService.getFollowedArtists();
+
+        for (Artist artist : followedArtists){
+            for(String gen : artist.getGenres()){
+                if(gen.equals(genre)){
+                    genreArtists.add(artist.getName());
                 }
             }
         }
-        return genresMap;
+
+        return genreArtists;
     }
 
-    //lista gatunków z ilością zespołów
-    public void showGenresInNumbers(Map<String, Integer> genresMap) {
 
-        genresMap.entrySet().forEach(entry -> System.out.println(entry.getKey() + " " + entry.getValue()));
+
+
+    public Map<String, Integer> getGenresCountMap(Artist[] art) {
+
+        genresCountMap.clear();
+
+        List<Artist> artList = Arrays.asList(art);
+
+        artList.stream().forEach(artist ->
+        { String[] genres = artist.getGenres();
+            List<String> genList = Arrays.asList(genres);
+            genList.stream().forEach(genre -> {
+                if (genresCountMap.containsKey(genre)) {
+                    genresCountMap.put(genre, genresCountMap.get(genre) + 1);
+                } else {
+                    genresCountMap.put(genre, 1);
+                }
+            });
+        });
+
+
+        return genresCountMap;
     }
 
-    public Map<String, Integer> getGenresMap() {
-        return genresMap;
+    public Map<String, Integer> getGenresCountMap() {
+        return genresCountMap;
     }
 }

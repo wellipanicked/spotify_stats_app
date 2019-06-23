@@ -22,9 +22,6 @@ public class TokenController {
         return code;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public String handleMissingParams(MissingServletRequestParameterException ex) {

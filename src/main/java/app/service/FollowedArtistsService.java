@@ -18,18 +18,13 @@ public class FollowedArtistsService {
     private Artist[] followedArtists;
 
 
-    public FollowedArtistsService() {
-    }
-
     public Artist[] getFollowedArtists() {
         final GetUsersFollowedArtistsRequest usersFollowedArtistsRequest = spotifyApi
                 .getUsersFollowedArtists(type)
                 .limit(50)
                 .build();
-
         try {
             final PagingCursorbased<Artist> artistPagingCursorbased = usersFollowedArtistsRequest.execute();
-
             followedArtists = artistPagingCursorbased.getItems();
 
         } catch (IOException | SpotifyWebApiException e) {
@@ -37,19 +32,5 @@ public class FollowedArtistsService {
         }
         return followedArtists;
     }
-
-    public void printFollowedArtistsDetailed(Artist[] art) {
-
-        for (int i = 0; i < art.length; i++) {
-            System.out.println(art[i].getName());
-            for (int j = 0; j < art[i].getGenres().length; j++) {
-                System.out.println("* " + art[i].getGenres()[j]);
-            }
-            System.out.println("URI: " + art[i].getUri() + "\n");
-        }
-    }
-
-    //gatunki
-
 
 }

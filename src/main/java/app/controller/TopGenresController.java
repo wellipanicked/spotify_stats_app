@@ -14,7 +14,7 @@ public class TopGenresController {
 
     @RequestMapping("/genres")
     public String getTopGenres(Model model) {
-        model.addAttribute("genres", topGenresService.showTopGenres());
+        model.addAttribute("genres", topGenresService.getTopGenres());
         return "genres";
     }
 }

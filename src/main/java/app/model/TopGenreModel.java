@@ -5,20 +5,24 @@ import java.util.List;
 public class TopGenreModel {
 
     private String genreName;
-
     private List<String> artists;
+
+
+    public TopGenreModel(String genreName, List<String> artists) {
+        this.genreName = genreName;
+        this.artists = artists;
+    }
 
     public String getGenreName() {
         return genreName;
     }
 
-    public void setGenreName(String genreName) {
-        this.genreName = genreName;
-    }
-
-
     public List<String> getArtists() {
         return artists;
+    }
+
+    public void setGenreName(String genreName) {
+        this.genreName = genreName;
     }
 
     public void setArtists(List<String> artists) {

@@ -10,42 +10,41 @@ import java.util.*;
 @Service
 public class TopGenresService {
 
+
+    private Map<String, Integer> genresMap;
+    private
+
     @Autowired
     FollowedArtistsService followedArtistsService;
+
     @Autowired
     ArtistsGenresService artistsGenresService;
 
-    public List<TopGenreModel> showTopGenres() {
-        Artist[] followedArtists = followedArtistsService.getFollowedArtists();
+    public void init() {
+        Artist[] followedArtists;
+        followedArtists = followedArtistsService.getFollowedArtists();
+        genresMap = artistsGenresService.getGenresCountMap(followedArtists);
+
+    }
+
+    public List<TopGenreModel> getTopGenres() {
+
         List<TopGenreModel> genresList = new ArrayList<>();
-        Map<String, Integer> genresMap = artistsGenresService.getGenresMap(followedArtists);
+        init();
 
         for (int k = 0; k < 3; k++) {
-            TopGenreModel topGenreModel = new TopGenreModel();
+
             int maxValueInMap = (Collections.max(genresMap.values()));
             for (Map.Entry<String, Integer> entry : genresMap.entrySet()) {
                 if (entry.getValue() == maxValueInMap && entry.getValue() != 0) {
-                    topGenreModel.setGenreName(entry.getKey());
-                    topGenreModel.setArtists(new ArrayList<>());
+                    TopGenreModel topGenreModel = new TopGenreModel(entry.getKey(), artistsGenresService.getGenreArtists(entry.getKey()));
                     genresMap.put(entry.getKey(), 0);
 
-                    String currentGenre = entry.getKey();
-                    for (int m = 0; m < followedArtists.length; m++) {
-                        for (int n = 0; n < followedArtists[m].getGenres().length; n++) {
-                            if (followedArtists[m].getGenres()[n].equals(currentGenre)) {
-                                topGenreModel.getArtists().add(followedArtists[m].getName());
-                            }
-
-                        }
+                    if (!genresList.contains(topGenreModel) && topGenreModel.getGenreName() != null) {
+                        genresList.add(topGenreModel);
                     }
-
                 }
-                if (!genresList.contains(topGenreModel) && topGenreModel.getGenreName() != null) {
-                    genresList.add(topGenreModel);
-                }
-
             }
-
         }
 
         return genresList;
