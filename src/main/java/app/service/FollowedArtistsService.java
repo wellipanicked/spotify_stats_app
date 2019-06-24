@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
-import static app.Application.spotifyApi;
+import static app.SpotifyApiSingleton.getSpotifyApi;
 
 @Service
 public class FollowedArtistsService {
@@ -17,9 +17,8 @@ public class FollowedArtistsService {
     private static final ModelObjectType type = ModelObjectType.ARTIST;
     private Artist[] followedArtists;
 
-
     public Artist[] getFollowedArtists() {
-        final GetUsersFollowedArtistsRequest usersFollowedArtistsRequest = spotifyApi
+        final GetUsersFollowedArtistsRequest usersFollowedArtistsRequest = getSpotifyApi()
                 .getUsersFollowedArtists(type)
                 .limit(50)
                 .build();
@@ -32,5 +31,4 @@ public class FollowedArtistsService {
         }
         return followedArtists;
     }
-
 }

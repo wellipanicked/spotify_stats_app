@@ -10,7 +10,6 @@ import java.util.*;
 @Service
 public class TopGenresService {
 
-
     private Map<String, Integer> genresMap;
     private
 
@@ -33,7 +32,6 @@ public class TopGenresService {
         init();
 
         for (int k = 0; k < 3; k++) {
-
             int maxValueInMap = (Collections.max(genresMap.values()));
             for (Map.Entry<String, Integer> entry : genresMap.entrySet()) {
                 if (entry.getValue() == maxValueInMap && entry.getValue() != 0) {

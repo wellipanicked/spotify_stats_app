@@ -6,23 +6,22 @@ import org.springframework.stereotype.Service;
 import java.awt.*;
 import java.net.URI;
 
-import static app.Application.spotifyApi;
+import static app.SpotifyApiSingleton.getSpotifyApi;
 
 @Service
 public class UriService {
 
-    public static final AuthorizationCodeUriRequest authorizationCodeUriRequest = spotifyApi.authorizationCodeUri()
-            .state("x4xkmn9pu3j6ukrs8n")
-            .scope("user-read-birthdate,user-read-email, user-read-private, user-follow-read")
-            .show_dialog(true)
-            .build();
-
     public static URI authorizationCodeUri() {
+        final AuthorizationCodeUriRequest authorizationCodeUriRequest = getSpotifyApi().authorizationCodeUri()
+                .state("x4xkmn9pu3j6ukrs8n")
+                .scope("user-read-birthdate,user-read-email, user-read-private, user-follow-read")
+                .show_dialog(true)
+                .build();
+
         final URI uri = authorizationCodeUriRequest.execute();
         System.out.println("URI: " + uri.toString());
         return uri;
     }
-
 
     public static boolean openWebpage(URI uri) {
         Desktop desktop = Desktop.getDesktop();
