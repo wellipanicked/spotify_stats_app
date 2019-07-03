@@ -3,6 +3,12 @@ Application created to show favourite music genres based on user's followed arti
 
 ## Installation
 
+Add
+```
+http://localhost:8080/logged/
+```
+as Redirect URI in your Spotify Developer Dashboard settings.
+
 Use command line, replace CLIENTID and CLIENTSECRET with your credentials:
 
 ```bash
