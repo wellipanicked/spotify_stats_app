@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class ArtistsGenresService {
@@ -46,7 +45,7 @@ public class ArtistsGenresService {
     public List<String> getGenreArtists(String genre) {
 
         List<String> genreArtists;
-        genreArtists = artistsGenresMultimap.get(genre).stream().collect(Collectors.toList());
+        genreArtists = new ArrayList<>(artistsGenresMultimap.get(genre));
         return genreArtists;
     }
 

@@ -12,10 +12,19 @@ public class TopGenresService {
     @Autowired
     ArtistsGenresService artistsGenresService;
 
-    public List<TopGenreModel> getTopGenres(){
+    private List<TopGenreModel> genresList = new ArrayList<>();
 
-        List<TopGenreModel> genresList = new ArrayList<>();
-        Map<String, Integer> genresMap = artistsGenresService.getGenresCount();
+    public List<TopGenreModel> getGenresList() {
+        genresList.clear();
+        getTopGenres(getGenresMap());
+        return genresList;
+    }
+
+    public Map<String, Integer> getGenresMap() {
+        return artistsGenresService.getGenresCount();
+    }
+
+    public List<TopGenreModel> getTopGenres(Map<String, Integer> genresMap){
 
         for (int k = 0; k < 3; k++) {
             if (genresMap.entrySet().stream().max(Map.Entry.comparingByValue()).isPresent()) {

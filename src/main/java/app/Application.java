@@ -33,11 +33,10 @@ public class Application implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
 
-        if(args[0] == null || args[0].length() != 32 || args[1] == null || args[1].length() != 32){
+        if (args[0] == null || args[0].length() != 32 || args[1] == null || args[1].length() != 32) {
             System.out.println("Niepoprawne dane wejściowe");
             System.exit(-1);
-        }
-        else {
+        } else {
 
             SpotifyApiSingleton spotifyApiSingleton = SpotifyApiSingleton.getInstance(args[0], args[1], redirectUri);
 
@@ -62,11 +61,10 @@ public class Application implements CommandLineRunner {
 
             String token = authorizationCodeCredentials.getAccessToken();
             System.out.println(token);
+            //  }
         }
+
     }
 
 }
-
-
-
 
