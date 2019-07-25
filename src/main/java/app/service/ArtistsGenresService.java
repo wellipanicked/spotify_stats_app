@@ -1,56 +1,14 @@
 package app.service;
 
-import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import com.wrapper.spotify.model_objects.specification.Artist;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
-@Service
-public class ArtistsGenresService {
+public interface ArtistsGenresService {
 
-    @Autowired
-    FollowedArtistsService followedArtistsService;
+    Multimap<String, String> getArtistsGenresMultimap();
+    Map<String, Integer> getGenresCount(Multimap<String, String> artGenMultimap);
+    List<String> getGenreArtists(Multimap<String, String> artistsGenresMultimap, String genre);
 
-    private Map<String, Integer> genresCountMap = new HashMap<>();
-
-    private static Multimap<String, String> artistsGenresMultimap = ArrayListMultimap.create();
-
-    public void makeArtistsGenresMultimap() {
-
-        artistsGenresMultimap.clear();
-
-        Artist[] followedArtists = followedArtistsService.getFollowedArtists();
-
-        Arrays.stream(followedArtists)
-                .forEach(followedArtist ->
-                        Arrays.stream(followedArtist.getGenres())
-                                .forEach(genre ->
-                                        artistsGenresMultimap.put(genre, followedArtist.getName())));
-    }
-
-    public Map<String, Integer> getGenresCount() {
-
-        makeArtistsGenresMultimap();
-        genresCountMap.clear();
-
-        for (String key : artistsGenresMultimap.keySet()) {
-            genresCountMap.put(key, artistsGenresMultimap.get(key).size());
-        }
-        return genresCountMap;
-    }
-
-    public List<String> getGenreArtists(String genre) {
-
-        List<String> genreArtists;
-        genreArtists = new ArrayList<>(artistsGenresMultimap.get(genre));
-        return genreArtists;
-    }
-
-
-    public Map<String, Integer> getGenresCountMap() {
-        return genresCountMap;
-    }
 }

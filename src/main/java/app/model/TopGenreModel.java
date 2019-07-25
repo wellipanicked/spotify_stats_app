@@ -4,14 +4,18 @@ import java.util.List;
 
 public class TopGenreModel {
 
+    private int place;
     private String genreName;
     private List<String> artists;
 
 
-    public TopGenreModel(String genreName, List<String> artists) {
+    public TopGenreModel(int place, String genreName, List<String> artists) {
+        this.place = place;
         this.genreName = genreName;
         this.artists = artists;
     }
+
+    public int getPlace(){ return place;}
 
     public String getGenreName() {
         return genreName;
