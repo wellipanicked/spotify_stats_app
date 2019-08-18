@@ -6,6 +6,5 @@ import java.util.List;
 
 public interface TopGenresService {
 
-    List<TopGenreModel> placeList(List<TopGenreModel> list, int place);
-    List<TopGenreModel> getTopGenres();
+    List<TopGenreModel> getTopGenres(int howManyTops);
 }

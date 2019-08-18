@@ -11,17 +11,16 @@ public class SpotifyApiService {
     private static SpotifyApi spotifyApi;
 
     public static SpotifyApi initializeSpotifyApi(String clientId, String clientSecret, URI redirectUri) {
-         spotifyApi = new SpotifyApi.Builder()
-                 .setClientId(clientId)
+        spotifyApi = new SpotifyApi.Builder()
+                .setClientId(clientId)
                 .setClientSecret(clientSecret)
                 .setRedirectUri(redirectUri)
                 .build();
 
-         return spotifyApi;
-}
+        return spotifyApi;
+    }
 
     public SpotifyApi getSpotifyApi() {
-
         return spotifyApi;
     }
 }

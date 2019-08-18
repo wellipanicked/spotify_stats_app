@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:display="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Your 3 Top Genres</title>
+    <title>Your Top Genres</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
 </head>
@@ -9,146 +9,37 @@
 
 
 <div style="text-align: center">
-    <h2>Your 3 Top Genres:</h2>
+    <h2 th:text="'YOUR ' + ${howManyTops} + ' TOP GENRES'"></h2>
+
+    <th:block
+            th:each="i : ${#numbers.sequence(1, actualPlacesMax+1, 1)}">
+
+        <tr th:each="genre, gStat : ${topGenres}">
+
+            <td
+                    th:if="${genre.isFirst() && genre.getPlace()== i}">
+                <h1 style="color: darkblue"><p th:text="${genre?.getPlace()}"/></h1>
+                <h2><p th:text="${genre?.getGenreName()}"/></h2>
+                <p th:text="${genre?.getArtists()}"/>
+            </td>
 
 
-    <!-- 1 -->
-
-    <tr
-            th:each="genre, iStat : ${topGenre1}" th:if="${iStat.index == 0}">
-        <h1>
-            <td th:text="1"/>
-        </h1>
-        <h3>
-            <td th:text="${genre?.getGenreName()}"/>
-        </h3>
-        <p>
-        <td th:text="${genre?.getArtists()}"/>
-        </p>
-    </tr>
-
-    <input type="button" value="Show ties" class="btn" name="btn_ties1" th:hidden="${#lists.size(topGenre1) &lt; 2}"
-           onclick="show1()"/>
-    <div id="div1" style="display: none">
-        <tr
-                th:each="genre, iStat : ${topGenre1}" th:if="${iStat.index > 0}">
-
-
-            <h2>
-                <td th:text="${genre?.getPlace()}"/>
-            </h2>
-            <h3>
-                <td th:text="${genre?.getGenreName()}"/>
-            </h3>
-            <p>
-            <td th:text="${genre?.getArtists()}"/>
-            </p>
+            <td th:if="${!genre.isFirst() && genre.getPlace() == i}">
+                <div id="div1" style="align-items: center; display: inline-table; padding: 20px; ">
+                    <h5 style="color: darkblue"><p th:text="${genre?.getPlace()}"/></h5>
+                    <h5><p th:text="${genre?.getGenreName()}"/></h5>
+                    <p th:text="${genre?.getArtists()}" style="font-size: small"/>
+                </div>
+            </td>
         </tr>
-    </div>
+    </th:block>
 
-    <!-- 2 -->
-
-    <tr
-            th:each="genre, iStat : ${topGenre2}" th:if="${iStat.index == 0}">
-        <h1>
-            <td th:text="${genre?.getPlace()}"/>
-        </h1>
-        <h3>
-            <td th:text="${genre?.getGenreName()}"/>
-        </h3>
-        <p>
-        <td th:text="${genre?.getArtists()}"/>
-        </p>
-    </tr>
-
-    <input type="button" value="Show ties" class="btn" name="btn_ties2" th:hidden="${#lists.size(topGenre2) &lt; 2}"
-           onclick="show2()"/>
-    <div id="div2" style="display: none">
-        <tr
-                th:each="genre, iStat : ${topGenre2}" th:if="${iStat.index > 0}">
-
-            <h3>
-                <td th:text="${genre?.getGenreName()}"/>
-            </h3>
-            <p>
-            <td th:text="${genre?.getArtists()}"/>
-            </p>
-        </tr>
-    </div>
-
-    <!-- 3 -->
-
-    <tr
-            th:each="genre, iStat : ${topGenre3}" th:if="${iStat.index == 0}">
-        <h1>
-            <td th:text="3"/>
-        </h1>
-        <h3>
-            <td th:text="${genre?.getGenreName()}"/>
-        </h3>
-        <p>
-        <td th:text="${genre?.getArtists()}"/>
-        </p>
-    </tr>
-
-    <input type="button" value="Show ties" class="btn" name="btn_ties3" th:hidden="${#lists.size(topGenre3) &lt; 2}"
-           onclick="show3()"/>
-    <div id="div3" style="display: none">
-        <tr
-                th:each="genre, iStat : ${topGenre3}" th:if="${iStat.index > 0}">
-
-
-            <h2>
-                <td th:text="3"/>
-            </h2>
-            <h3>
-                <td th:text="${genre?.getGenreName()}"/>
-            </h3>
-            <p>
-            <td th:text="${genre?.getArtists()}"/>
-            </p>
-        </tr>
-    </div>
-    <br>
-    <br>
-    <h3>
+    <h2>
         <td th:text="${empty}"/>
-    </h3>
-    <h3>
+    </h2>
+    <h2>
         <td th:text="${notAll}"/>
-    </h3>
-    </tr>
-    <script>
-
-        function show1() {
-            var x = document.getElementById("div1");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-        }
-
-        function show2() {
-            var x = document.getElementById("div2");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-        }
-
-        function show3() {
-            var x = document.getElementById("div3");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-        }
-    </script>
-
-
+    </h2>
 </div>
 </body>
 </html>

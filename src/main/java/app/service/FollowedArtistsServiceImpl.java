@@ -17,6 +17,11 @@ public class FollowedArtistsServiceImpl implements FollowedArtistsService {
 @Autowired
     SpotifyApiService spotifyApiService;
 
+    @Override
+    public Artist[] getFollowedArtists(SpotifyApi spotifyApi){
+        return createFollowedArtistsArray(spotifyApi);
+    }
+
     private Artist[] createFollowedArtistsArray(SpotifyApi spotifyApi) {
         ModelObjectType type = ModelObjectType.ARTIST;
         Artist[] followedArtists = null;
@@ -38,9 +43,6 @@ public class FollowedArtistsServiceImpl implements FollowedArtistsService {
         return followedArtists;
     }
 
-    @Override
-    public Artist[] getFollowedArtists(SpotifyApi spotifyApi){
-        return createFollowedArtistsArray(spotifyApi);
-    }
+
 
 }

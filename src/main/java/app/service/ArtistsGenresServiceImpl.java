@@ -17,6 +17,11 @@ public class ArtistsGenresServiceImpl implements ArtistsGenresService {
     @Autowired
     SpotifyApiService spotifyApiService;
 
+    @Override
+    public Multimap<String, String> getArtistsGenresMultimap() {
+        return createArtistsGenresMultimap();
+    }
+
     private Multimap<String, String> createArtistsGenresMultimap() {
 
         Artist[] followedArtists = followedArtistsService.getFollowedArtists(spotifyApiService.getSpotifyApi());
@@ -32,6 +37,11 @@ public class ArtistsGenresServiceImpl implements ArtistsGenresService {
         return artistsGenresMultimap;
     }
 
+    @Override
+    public Map<String, Integer> getGenresCount(Multimap<String, String> artGenMultimap) {
+        return countGenres(artGenMultimap);
+    }
+
     private Map<String, Integer> countGenres(Multimap<String, String> artGenMultimap) {
         Map<String, Integer> genresCountMap = new HashMap<>();
 
@@ -41,25 +51,15 @@ public class ArtistsGenresServiceImpl implements ArtistsGenresService {
         return genresCountMap;
     }
 
+    @Override
+    public List<String> getGenreArtists(Multimap<String, String> artistsGenresMultimap, String genre) {
+        return findGenreArtists(artistsGenresMultimap, genre);
+    }
+
     private List<String> findGenreArtists(Multimap<String, String> artistsGenresMultimap, String genre) {
         List<String> genreArtists;
         genreArtists = new ArrayList<>(artistsGenresMultimap.get(genre));
         return genreArtists;
-    }
-
-    @Override
-    public Multimap<String, String> getArtistsGenresMultimap() {
-        return createArtistsGenresMultimap();
-    }
-
-    @Override
-    public Map<String, Integer> getGenresCount(Multimap<String, String> artGenMultimap) {
-        return countGenres(artGenMultimap);
-    }
-
-    @Override
-    public List<String> getGenreArtists(Multimap<String, String> artistsGenresMultimap, String genre) {
-        return findGenreArtists(artistsGenresMultimap, genre);
     }
 
 }

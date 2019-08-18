@@ -48,7 +48,7 @@ class TopGenresServiceImplTest {
     @BeforeAll
     static void setup() {
 
-        topGenreModel = new TopGenreModel(1, "Test Genre", new ArrayList<>());
+        topGenreModel = new TopGenreModel(1, true, "Test Genre", new ArrayList<>());
 
         artistsList.add("unknown");
 
@@ -109,7 +109,7 @@ class TopGenresServiceImplTest {
         when(artistsGenresService.getArtistsGenresMultimap()).thenReturn(emptyArtGenMultimap);
         when(artistsGenresService.getGenresCount(any())).thenReturn(emptyGenresCount);
 
-        assertTrue(topGenresService.getTopGenres().isEmpty());
+        assertTrue(topGenresService.getTopGenres(3).isEmpty());
     }
 
     @Test
@@ -119,7 +119,7 @@ class TopGenresServiceImplTest {
         when(artistsGenresService.getGenresCount(any())).thenReturn(equalGenresCount);
         when(artistsGenresService.getGenreArtists(any(), any())).thenReturn(artistsList);
 
-        assertTrue(topGenresService.getTopGenres().stream().filter(g -> g.getPlace() > 1).count() == 0);
+        assertTrue(topGenresService.getTopGenres(3).stream().noneMatch(g -> g.getPlace() > 1));
     }
 
     @Test
@@ -128,7 +128,7 @@ class TopGenresServiceImplTest {
         when(artistsGenresService.getGenresCount(any())).thenReturn(smallGenresCount);
         when(artistsGenresService.getGenreArtists(any(), any())).thenReturn(artistsList);
 
-        assertTrue(topGenresService.getTopGenres().size() == 1);
+        assertTrue(topGenresService.getTopGenres(3).size() == 1);
     }
 
     @Test
@@ -137,6 +137,6 @@ class TopGenresServiceImplTest {
         when(artistsGenresService.getGenresCount(any())).thenReturn(typicalGenresCount);
         when(artistsGenresService.getGenreArtists(any(), any())).thenReturn(artistsList);
 
-        assertTrue(topGenresService.getTopGenres().stream().filter(g -> g.getPlace() > 3).count() == 0);
+        assertTrue(topGenresService.getTopGenres(3).stream().noneMatch(g -> g.getPlace() > 3));
     }
 }

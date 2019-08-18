@@ -16,18 +16,22 @@ public class TopGenresController {
     TopGenresServiceImpl topGenresService;
 
     private String empty = "You have no followed artists, or your artists don't have genres added - there's really nothing I can show you :(";
-    private String notAll = "You need to follow more artists - this list could've been bigger!";
+    private String notAll = "You need to follow more artists - this list should've been bigger!";
 
     @RequestMapping("/genres")
     public String getTopGenres(Model model) {
 
-        List<TopGenreModel> topGenres = topGenresService.getTopGenres();
-        model.addAttribute("topGenre1", topGenresService.placeList(topGenres, 1));
-        model.addAttribute("topGenre2", topGenresService.placeList(topGenres, 2));
-        model.addAttribute("topGenre3", topGenresService.placeList(topGenres, 3));
-        if (topGenresService.getTopGenres().isEmpty()) {
+        int howManyTops = 3;
+        List<TopGenreModel> topGenres = topGenresService.getTopGenres(howManyTops);
+        int actualPlacesMax = topGenresService.getActualPlacesMax(topGenres);
+
+        model.addAttribute("howManyTops", howManyTops);
+        model.addAttribute("actualPlacesMax", actualPlacesMax);
+        model.addAttribute("topGenres", topGenres);
+
+        if (topGenresService.getTopGenres(howManyTops).isEmpty()) {
             model.addAttribute("empty", empty);
-        } else if (topGenresService.placeList(topGenres, 2).isEmpty() || topGenresService.placeList(topGenres, 3).isEmpty()) {
+        } else if (actualPlacesMax < howManyTops) {
             model.addAttribute("notAll", notAll);
         }
         return "genres";
