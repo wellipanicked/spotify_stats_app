@@ -12,7 +12,7 @@
     <h2 th:text="'YOUR ' + ${howManyTops} + ' TOP GENRES'"></h2>
 
     <th:block
-            th:each="i : ${#numbers.sequence(1, actualPlacesMax+1, 1)}">
+            th:each="i : ${#numbers.sequence(1, actualHighestPlace+1, 1)}">
 
         <tr th:each="genre, gStat : ${topGenres}">
 
@@ -26,7 +26,7 @@
 
             <td th:if="${!genre.isFirst() && genre.getPlace() == i}">
                 <div id="div1" style="align-items: center; display: inline-table; padding: 20px; ">
-                    <h5 style="color: darkblue"><p th:text="${genre?.getPlace()}"/></h5>
+                    <h4 style="color: darkblue"><p th:text="${genre?.getPlace()}"/></h4>
                     <h5><p th:text="${genre?.getGenreName()}"/></h5>
                     <p th:text="${genre?.getArtists()}" style="font-size: small"/>
                 </div>

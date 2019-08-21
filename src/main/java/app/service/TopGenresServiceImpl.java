@@ -32,16 +32,10 @@ public class TopGenresServiceImpl implements TopGenresService {
             int counter = 0;
 
             if (!genresCountMap.isEmpty()) {
-                for (String e : getListOfMaxes(genresCountMap)) {
-                    TopGenreModel topGenreModel;
-                    if (counter == 0) {
-                        topGenreModel = new TopGenreModel(position, true, e, artistsGenresService.getGenreArtists(artistsGenresMultimap, e));
-                    } else {
-                        topGenreModel = new TopGenreModel(position, false, e, artistsGenresService.getGenreArtists(artistsGenresMultimap, e));
-                    }
+                for (String genreName : getListOfMaxes(genresCountMap)) {
+                    genresList.add(getTopGenreModel(artistsGenresMultimap, genreName, position, counter));
+                    genresCountMap.remove(genreName);
                     counter++;
-                    genresList.add(topGenreModel);
-                    genresCountMap.remove(e);
                 }
             } else {
                 break;
@@ -66,7 +60,12 @@ public class TopGenresServiceImpl implements TopGenresService {
                 .getValue();
     }
 
-    public int getActualPlacesMax(List<TopGenreModel> topGenres) {
+    private TopGenreModel getTopGenreModel(Multimap<String, String> artistsGenresMultimap, String genreName, int position, int counter) {
+        boolean isFirst = counter == 0;
+        return new TopGenreModel(position, isFirst, genreName, artistsGenresService.getGenreArtists(artistsGenresMultimap, genreName));
+    }
+
+    public int getActualHighestPlace(List<TopGenreModel> topGenres) {
         TopGenreModel maxPlaceTopGenreModel = topGenres.stream().max(comparing(TopGenreModel::getPlace)).get();
         return maxPlaceTopGenreModel.getPlace();
     }
